@@ -8,5 +8,7 @@ import java.util.List;
 
 public interface IStudentAdapterRepository extends JpaRepository<StudentDBO, Long> {
 
-    List<StudentDBO> findByCourseId(Long courseDBOId);
+    //List<StudentDBO> findStudentsByCourseId(Long id);
+
+    List<StudentDBO> findByCourseDBO(CourseDBO courseDBO);
 }

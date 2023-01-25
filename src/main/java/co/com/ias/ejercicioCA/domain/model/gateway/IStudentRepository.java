@@ -10,7 +10,7 @@ public interface IStudentRepository {
 
     List<Student> findAll();
 
-    List<Student> findByCourse(Long id);
+    List<Student> findByCourse(Course course);
 
     Student findById(Long id);
 }

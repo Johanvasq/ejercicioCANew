@@ -12,8 +12,8 @@ public class UseCaseBeanConfig {
     @Bean
     public StudentUseCase studentUseCase(
             IStudentRepository iStudentRepository,
-            CourseUseCase courseUseCase){
-        return new StudentUseCase(iStudentRepository, courseUseCase);
+            ICourseRepository iCourseRepository){
+        return new StudentUseCase(iStudentRepository, iCourseRepository);
     }
 
     @Bean

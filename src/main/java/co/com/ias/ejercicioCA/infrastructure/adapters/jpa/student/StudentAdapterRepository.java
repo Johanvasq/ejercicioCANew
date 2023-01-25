@@ -16,6 +16,9 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class StudentAdapterRepository implements IStudentRepository {
     private final IStudentAdapterRepository iStudentAdapterRepository;
+
+
+
     @Override
     public Student saveStudent(Student student, Course course) {
         StudentDBO studentDBO = new StudentDBO().fromDomain(student);
@@ -34,11 +37,14 @@ public class StudentAdapterRepository implements IStudentRepository {
     }
 
     @Override
-    public List<Student> findByCourse(Long id) {
-        return iStudentAdapterRepository.findByCourseId(id)
+    public List<Student> findByCourse(Course course) {
+        return iStudentAdapterRepository.findByCourseDBO(CourseDBO.fromDomain(course))
                 .stream()
                 .map(StudentDBO::toDomain)
                 .collect(Collectors.toList());
+
+
+        //return List.of();
     }
 
     @Override

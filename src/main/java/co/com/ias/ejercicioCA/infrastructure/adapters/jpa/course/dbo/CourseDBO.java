@@ -23,7 +23,7 @@ public class CourseDBO {
     private Long id;
     private String name;
 
-    public CourseDBO fromDomain(Course course){
+    public static CourseDBO fromDomain(Course course){
         return new CourseDBO(
                 course.getId().getValue(),
                 course.getName().getValue()

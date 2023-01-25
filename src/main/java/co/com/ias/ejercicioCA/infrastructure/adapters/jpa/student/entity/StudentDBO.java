@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,8 +30,9 @@ public class StudentDBO {
     private String mail;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "course",referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "course_id", nullable = false)
     private CourseDBO courseDBO;
+
 
     public StudentDBO(Long id, String name, Integer phone, String mail) {
         this.id = id;
