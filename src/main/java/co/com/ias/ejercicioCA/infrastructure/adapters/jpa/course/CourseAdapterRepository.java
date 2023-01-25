@@ -5,13 +5,14 @@ import co.com.ias.ejercicioCA.domain.model.gateway.ICourseRepository;
 import co.com.ias.ejercicioCA.infrastructure.adapters.jpa.course.dbo.CourseDBO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
-@Controller
+@Repository
 public class CourseAdapterRepository implements ICourseRepository {
 
     private final ICourseAdapterRepository iCourseAdapterRepository;
