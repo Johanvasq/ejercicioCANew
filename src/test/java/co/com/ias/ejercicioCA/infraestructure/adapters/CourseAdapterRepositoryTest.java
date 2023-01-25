@@ -21,19 +21,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ActiveProfiles("test")
 public class CourseAdapterRepositoryTest {
-
     @Autowired
-    private ICourseAdapterRepository repository;
-
+    ICourseAdapterRepository repository;
     @InjectMocks
-    private CourseAdapterRepository courseAdapterRepository;
-
-
+    CourseAdapterRepository courseAdapterRepository;
 
     @BeforeAll
-    void init() {
-         CourseAdapterRepository courseAdapterRepository = new
-                 CourseAdapterRepository(repository);
+    void init(){
+        courseAdapterRepository = new CourseAdapterRepository(repository);
     }
 
     @Test
