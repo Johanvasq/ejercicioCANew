@@ -4,12 +4,14 @@ package co.com.ias.ejercicioCA.infrastructure.adapters.jpa.course.dbo;
 import co.com.ias.ejercicioCA.domain.model.course.Course;
 import co.com.ias.ejercicioCA.domain.model.course.attributes.CourseId;
 import co.com.ias.ejercicioCA.domain.model.course.attributes.CourseName;
+import co.com.ias.ejercicioCA.infrastructure.adapters.jpa.student.entity.StudentDBO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter

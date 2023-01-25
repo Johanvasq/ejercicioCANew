@@ -3,10 +3,12 @@ package co.com.ias.ejercicioCA.domain.model.course.dto;
 import co.com.ias.ejercicioCA.domain.model.course.Course;
 import co.com.ias.ejercicioCA.domain.model.course.attributes.CourseId;
 import co.com.ias.ejercicioCA.domain.model.course.attributes.CourseName;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 public class CourseDTO {
 
     private Long id;
+
     private String name;
 
     public CourseDTO(Long id, String name) {
@@ -35,7 +37,7 @@ public class CourseDTO {
     }
 
 
-    public Course toDomain(CourseDTO courseDTO){
+    public Course toDomain(CourseDTO courseDTO) {
         return new Course(
                 new CourseId(courseDTO.getId()),
                 new CourseName(courseDTO.getName())

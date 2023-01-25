@@ -3,6 +3,7 @@ package co.com.ias.ejercicioCA.infrastructure.entrypoint;
 
 import co.com.ias.ejercicioCA.domain.model.course.dto.CourseDTO;
 import co.com.ias.ejercicioCA.domain.usecase.CourseUseCase;
+import co.com.ias.ejercicioCA.domain.usecase.StudentUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.util.Optional;
 public class CourseEntryPoint {
 
     private final CourseUseCase courseUseCase;
+
 
     @PostMapping
     public ResponseEntity<?> saveCourse(@RequestBody CourseDTO courseDTO){

@@ -18,7 +18,8 @@ public class CourseAdapterRepository implements ICourseRepository {
     @Override
     public Course saveCourse(Course course) {
         CourseDBO courseDBO = new CourseDBO().fromDomain(course);
-        return courseDBO.toDomain(iCourseAdapterRepository.save(courseDBO));
+        CourseDBO response = iCourseAdapterRepository.save(courseDBO);
+        return courseDBO.toDomain(response);
     }
 
     @Override
