@@ -23,16 +23,21 @@ public class StudentEntryPoint {
                studentUseCase.saveStudent(studentDTO));
 
        if(student.isPresent()){
-           return ResponseEntity.ok().body(student.get());
+           return ResponseEntity.status(201).body(student.get());
        }else {
-           return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED)
+           return ResponseEntity.status(412)
                    .body("Ingrese un id de curso valido");
        }
    }
 
    @GetMapping
    public ResponseEntity<?> findAll(){
-       return ResponseEntity.ok().body(studentUseCase.findAll());
+       List<StudentDTO> students = studentUseCase.findAll();
+       if (students.isEmpty()){
+           return ResponseEntity.status(404).body("No se encontraron los estudiantes");
+       }else {
+           return ResponseEntity.status(HttpStatus.FOUND).body(students);
+       }
    }
 
 
@@ -40,9 +45,9 @@ public class StudentEntryPoint {
     public ResponseEntity<?> findByCourse(@PathVariable Long id){
        Optional<List<StudentDTO>> list = Optional.ofNullable(studentUseCase.findByCourse(id));
        if (list.isPresent() && list.get().size() > 0){
-           return ResponseEntity.ok().body(list.get());
+           return ResponseEntity.status(HttpStatus.FOUND).body(list.get());
        }else if (list.isEmpty()){
-           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ingrese un id de materia valido");
+           return ResponseEntity.status(412).body("Ingrese un id de materia valido");
        }else {
            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay estudiantes registrados en la materia");
        }
@@ -52,7 +57,7 @@ public class StudentEntryPoint {
     public ResponseEntity<?> findById(@PathVariable Long id){
        Optional<StudentDTO> studentDTO = Optional.ofNullable(studentUseCase.findById(id));
        if (studentDTO.isPresent()){
-           return ResponseEntity.ok().body(studentDTO.get());
+           return ResponseEntity.status(HttpStatus.FOUND).body(studentDTO.get());
        }else {
            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El estudiante no fue encontrado");
        }

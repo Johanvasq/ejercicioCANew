@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.Option;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -22,7 +23,7 @@ public class CourseEntryPoint {
 
     @PostMapping
     public ResponseEntity<?> saveCourse(@RequestBody CourseDTO courseDTO){
-        return ResponseEntity.ok().body(courseUseCase.saveCourse(courseDTO));
+        return ResponseEntity.status(201).body(courseUseCase.saveCourse(courseDTO));
     }
 
     @GetMapping("/{id}")
@@ -30,7 +31,7 @@ public class CourseEntryPoint {
         Optional<CourseDTO> courseDTO = Optional.ofNullable(
                 courseUseCase.findById(id));
         if (courseDTO.isPresent()){
-            return ResponseEntity.ok().body(courseDTO.get());
+            return ResponseEntity.status(HttpStatus.FOUND).body(courseDTO.get());
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Curso no encontrado");
         }
@@ -38,6 +39,11 @@ public class CourseEntryPoint {
 
     @GetMapping
     public ResponseEntity<?> findAll(){
-        return ResponseEntity.ok().body(courseUseCase.findAll());
+        List<CourseDTO> courses = courseUseCase.findAll();
+        if (courses.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontraron los cursos");
+        }else {
+            return ResponseEntity.status(HttpStatus.FOUND).body(courses);
+        }
     }
 }
