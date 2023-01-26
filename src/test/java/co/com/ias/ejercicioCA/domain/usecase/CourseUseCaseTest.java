@@ -4,6 +4,7 @@ import co.com.ias.ejercicioCA.domain.model.course.Course;
 import co.com.ias.ejercicioCA.domain.model.course.dto.CourseDTO;
 import co.com.ias.ejercicioCA.domain.model.gateway.ICourseRepository;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.mockito.InjectMocks;
@@ -32,6 +33,7 @@ class CourseUseCaseTest {
 
 
     @Test
+    @DisplayName("Saving Course")
     void saveCourse() {
 
         CourseDTO courseDTO = new CourseDTO(1L, "Math");
