@@ -27,21 +27,22 @@ public class CourseEntryPoint {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id){
+    public ResponseEntity<?> findById(@PathVariable Long id) {
         Optional<CourseDTO> courseDTO = Optional.ofNullable(
                 courseUseCase.findById(id));
-        if (courseDTO.isPresent()){
+        if (courseDTO.isPresent()) {
             return ResponseEntity.status(HttpStatus.FOUND).body(courseDTO.get());
-        }else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Curso no encontrado");
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course not found");
         }
     }
 
     @GetMapping
     public ResponseEntity<?> findAll(){
         List<CourseDTO> courses = courseUseCase.findAll();
-        if (courses.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontraron los cursos");
+        if (courses.size() == 0) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course not found");
         }else {
             return ResponseEntity.status(HttpStatus.FOUND).body(courses);
         }

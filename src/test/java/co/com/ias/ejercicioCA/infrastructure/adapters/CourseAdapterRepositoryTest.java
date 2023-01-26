@@ -1,10 +1,11 @@
-package co.com.ias.ejercicioCA.infraestructure.adapters;
+package co.com.ias.ejercicioCA.infrastructure.adapters;
 
 import co.com.ias.ejercicioCA.domain.model.course.Course;
 import co.com.ias.ejercicioCA.domain.model.course.attributes.CourseId;
 import co.com.ias.ejercicioCA.domain.model.course.attributes.CourseName;
 import co.com.ias.ejercicioCA.infrastructure.adapters.jpa.course.CourseAdapterRepository;
 import co.com.ias.ejercicioCA.infrastructure.adapters.jpa.course.ICourseAdapterRepository;
+import org.aspectj.bridge.IMessage;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -36,16 +37,16 @@ public class CourseAdapterRepositoryTest {
     void saveProduct() {
 
         //Arrange
-        Course course = new Course(
+        Course course1 = new Course(
                 new CourseId(10L),
                 new CourseName("Name")
         );
 
         //Act
-        Course response = courseAdapterRepository.saveCourse(course);
+        Course response1 = courseAdapterRepository.saveCourse(course1);
 
         //Assert
-        assertEquals("Name", response.getName().getValue());
+        assertEquals("Name", response1.getName().getValue(), "passed");
     }
 
 }
