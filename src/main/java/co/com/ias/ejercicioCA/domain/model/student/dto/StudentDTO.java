@@ -22,7 +22,9 @@ public class StudentDTO {
         this.mail = mail;
     }
 
+    public StudentDTO() {
 
+    }
 
     public Long getId() {
         return id;

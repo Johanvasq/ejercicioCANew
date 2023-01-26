@@ -26,7 +26,7 @@ public class StudentEntryPoint {
            return ResponseEntity.status(201).body(student.get());
        }else {
            return ResponseEntity.status(412)
-                   .body("Ingrese un id de curso valido");
+                   .body("Course id not found");
        }
    }
 
@@ -34,7 +34,7 @@ public class StudentEntryPoint {
    public ResponseEntity<?> findAll(){
        List<StudentDTO> students = studentUseCase.findAll();
        if (students.isEmpty()){
-           return ResponseEntity.status(404).body("No se encontraron los estudiantes");
+           return ResponseEntity.status(404).body("Students not found");
        }else {
            return ResponseEntity.status(HttpStatus.FOUND).body(students);
        }

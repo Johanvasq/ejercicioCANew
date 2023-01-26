@@ -20,11 +20,13 @@ public class StudentUseCase {
     }
 
     public StudentDTO saveStudent(StudentDTO studentDTO) {
-        Optional<Course> course = Optional
-                .ofNullable(iCourseRepository.findById(studentDTO.getCourseId()));
-        if (course.isPresent()){
-            Student student = studentDTO.toDomain(studentDTO);
-            return studentDTO.fromDomain(iStudentRepository.saveStudent(student, course.get()));
+        if(studentDTO.getCourseId() != null){
+            Optional<Course> course = Optional
+                    .ofNullable(iCourseRepository.findById(studentDTO.getCourseId()));
+            if (course.isPresent()){
+                Student student = studentDTO.toDomain(studentDTO);
+                return studentDTO.fromDomain(iStudentRepository.saveStudent(student, course.get()));
+            }
         }
         return null;
     }

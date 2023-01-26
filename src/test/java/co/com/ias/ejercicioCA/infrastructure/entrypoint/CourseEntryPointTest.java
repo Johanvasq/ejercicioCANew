@@ -2,10 +2,9 @@ package co.com.ias.ejercicioCA.infrastructure.entrypoint;
 
 import co.com.ias.ejercicioCA.domain.model.course.dto.CourseDTO;
 import co.com.ias.ejercicioCA.domain.usecase.CourseUseCase;
-import co.com.ias.ejercicioCA.infrastructure.entrypoint.CourseEntryPoint;
-import com.fasterxml.jackson.core.JsonProcessingException;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hamcrest.Matchers;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,17 +12,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcResultHandlersDsl;
-import org.springframework.test.web.servlet.ResultMatcher;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
 
 import java.util.List;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.contains;
+
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -41,12 +36,14 @@ public class CourseEntryPointTest {
 
 
     @Test
-    @DisplayName("save course")
+    @DisplayName("save course ok")
     void saveCourse() throws Exception {
         //Arrange
         CourseDTO courseDTO = new CourseDTO(1L, "Fisica");
+
         when(courseUseCase.saveCourse(any(CourseDTO.class)))
                 .thenReturn(courseDTO);
+
         ObjectMapper mapper = new ObjectMapper();
         //Act && Assert
         mockMvc.perform(
@@ -61,7 +58,7 @@ public class CourseEntryPointTest {
     @Test
     @DisplayName("find course by id FOUND")
     void findById() throws Exception {
-        saveCourse();
+
         CourseDTO courseDTO = new CourseDTO(1L, "Fisica");
 
         when(courseUseCase.findById(any(Long.class)))
@@ -97,13 +94,10 @@ public class CourseEntryPointTest {
     @Test
     @DisplayName("find all courses ok")
     void findAll() throws Exception {
-        saveCourse();
         CourseDTO courseDTO = new CourseDTO(1L, "Fisica");
 
         when(courseUseCase.findAll())
               .thenReturn(List.of(courseDTO));
-
-        ObjectMapper mapper = new ObjectMapper();
 
         //Act && Assert
         mockMvc.perform(
