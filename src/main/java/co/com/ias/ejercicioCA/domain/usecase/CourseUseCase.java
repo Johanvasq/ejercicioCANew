@@ -1,5 +1,6 @@
 package co.com.ias.ejercicioCA.domain.usecase;
 
+import co.com.ias.ejercicioCA.domain.model.course.Course;
 import co.com.ias.ejercicioCA.domain.model.course.dto.CourseDTO;
 import co.com.ias.ejercicioCA.domain.model.gateway.ICourseRepository;
 
@@ -20,10 +21,11 @@ public class CourseUseCase {
     }
 
     public CourseDTO findById(Long id){
-        Optional<CourseDTO>courseDTO = Optional.ofNullable(
-                new CourseDTO().fromDomain(iCourserepository.findById(id)));
-        if (courseDTO.isPresent()){
-            return courseDTO.get();
+        Optional<Course> course = Optional.
+                ofNullable(iCourserepository.findById(id));
+
+        if (course.isPresent()){
+            return CourseDTO.fromDomain(course.get());
         }else {
             return null;
         }

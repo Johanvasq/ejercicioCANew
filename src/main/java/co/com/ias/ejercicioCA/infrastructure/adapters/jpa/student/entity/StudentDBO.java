@@ -18,7 +18,10 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Getter
-@Table(name="student")
+@Table(name = "student")
+@NamedQueries({
+        @NamedQuery(name = "StudentDBO.findByCourseDBO_Id", query = "select s from StudentDBO s where s.courseDBO.id = :id")
+})
 @Entity
 public class StudentDBO {
     @Id

@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -136,12 +137,38 @@ class StudentUseCaseTest {
 
         List<StudentDTO> result = studentUseCase.findByCourse(1L);
 
-        assertFalse(result.size() > 0);
+        assertTrue(result == null);
 
 
     }
 
     @Test
+    @DisplayName("find by id")
     void findById() {
+        StudentDTO studentDTO = new StudentDTO(1L,"Maria", 123, "example@ex.com");
+        studentDTO.setCourseId(1L);
+        Student student = StudentDTO.toDomain(studentDTO);
+
+        when(iStudentRepository.findById(1L))
+                .thenReturn(student);
+
+        StudentDTO result = studentUseCase.findById(1L);
+
+        assertEquals(student.getName().getValue(), "Maria");
+    }
+
+    @Test
+    @DisplayName("find by id")
+    void testFindById() {
+        StudentDTO studentDTO = new StudentDTO(1L,"Maria", 123, "example@ex.com");
+        studentDTO.setCourseId(1L);
+        Student student = StudentDTO.toDomain(studentDTO);
+
+        when(iStudentRepository.findById(1L))
+                .thenReturn(null);
+
+        StudentDTO result = studentUseCase.findById(1L);
+
+        assertTrue(result == null);
     }
 }

@@ -2,6 +2,7 @@ package co.com.ias.ejercicioCA.infrastructure.entrypoint;
 
 import co.com.ias.ejercicioCA.domain.model.student.dto.StudentDTO;
 import co.com.ias.ejercicioCA.domain.usecase.StudentUseCase;
+import co.com.ias.ejercicioCA.infrastructure.exception.ClassException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +20,20 @@ public class StudentEntryPoint {
 
    @PostMapping
    public ResponseEntity<?> saveStudent(@RequestBody StudentDTO studentDTO){
-       Optional<StudentDTO> student = Optional.ofNullable(
-               studentUseCase.saveStudent(studentDTO));
+       try{
+           Optional<StudentDTO> student = Optional.ofNullable(
+                   studentUseCase.saveStudent(studentDTO));
 
-       if(student.isPresent()){
-           return ResponseEntity.status(201).body(student.get());
-       }else {
-           return ResponseEntity.status(412)
-                   .body("Course id not found");
+           if(student.isPresent()){
+               return ResponseEntity.status(201).body(student.get());
+           }else {
+               return ResponseEntity.status(412)
+                       .body("Course id not found");
+
+       }}catch (IllegalArgumentException ex){
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                ClassException.builder().message(ex.getMessage()).status(500)
+        );
        }
    }
 
