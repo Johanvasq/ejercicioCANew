@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.Option;
+import javax.validation.constraints.Min;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,14 +30,14 @@ public class CourseEntryPoint {
             return ResponseEntity.status(201).body(courseUseCase.saveCourse(courseDTO));
         }catch (IllegalArgumentException ex){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                    ClassException.builder().message(ex.getMessage()).status(500)
+                    ClassException.builder().message(ex.getMessage()).status(500).build()
             );
         }
 
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id) {
+    public ResponseEntity<?> findById(@PathVariable @Min(1) Long id) {
         try{
             Optional<CourseDTO> courseDTO = Optional.ofNullable(
                     courseUseCase.findById(id));
@@ -48,7 +49,7 @@ public class CourseEntryPoint {
             }
         }catch (IllegalArgumentException ex){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                    ClassException.builder().message(ex.getMessage()).status(500)
+                    ClassException.builder().message(ex.getMessage()).status(500).build()
             );
         }
 

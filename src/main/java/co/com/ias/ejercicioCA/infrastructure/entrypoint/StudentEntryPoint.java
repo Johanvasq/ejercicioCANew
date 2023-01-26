@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Min;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +33,7 @@ public class StudentEntryPoint {
 
        }}catch (IllegalArgumentException ex){
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                ClassException.builder().message(ex.getMessage()).status(500)
+                ClassException.builder().message(ex.getMessage()).status(500).build()
         );
        }
    }
@@ -49,7 +50,7 @@ public class StudentEntryPoint {
 
 
    @GetMapping("/course/{id}")
-    public ResponseEntity<?> findByCourse(@PathVariable Long id){
+    public ResponseEntity<?> findByCourse(@PathVariable @Min(1) Long id){
        Optional<List<StudentDTO>> list = Optional.ofNullable(studentUseCase.findByCourse(id));
        if (list.isPresent() && list.get().size() > 0){
            return ResponseEntity.status(HttpStatus.FOUND).body(list.get());
@@ -61,7 +62,7 @@ public class StudentEntryPoint {
    }
 
    @GetMapping("/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id){
+    public ResponseEntity<?> findById(@PathVariable @Min(1) Long id){
        Optional<StudentDTO> studentDTO = Optional.ofNullable(studentUseCase.findById(id));
        if (studentDTO.isPresent()){
            return ResponseEntity.status(HttpStatus.FOUND).body(studentDTO.get());
